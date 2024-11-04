@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: libraryapp
+  labels:
+    app: libraryapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: libraryapp
+  template:
+    metadata:
+      labels:
+        app: libraryapp
+      annotations:
+        kubernetes.io/change-cause: "Update to the latest image"
+    spec:
+      containers:
+        - name: libraryapp
+          image: registry.digitalocean.com/library-flask-kubernetes/library-app@sha256:74ae43402e86a12d3a80a302b6a418c257198b2493b34fa495ef5d5923741401
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
